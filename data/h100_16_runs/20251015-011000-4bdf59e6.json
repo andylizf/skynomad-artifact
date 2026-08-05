@@ -1,0 +1,1074 @@
+{
+  "duration_human": "1m 31s",
+  "duration_sec": 90.871,
+  "ended_at": "2025-10-15T01:11:30.876734-07:00",
+  "interval_human": "10m 0s",
+  "interval_sec": 600,
+  "logs_path": "/home/gcpuser/spot-trace-prober/data/logs/run-20251015-011000-4bdf59e6.log",
+  "notes": "",
+  "run_id": "20251015-011000-4bdf59e6",
+  "scheduled_at": "2025-10-15T01:10:00.003117-07:00",
+  "started_at": "2025-10-15T01:10:00.005525-07:00",
+  "status": "success",
+  "total_instances_created": 177,
+  "total_instances_requested": 208,
+  "zone_results": {
+    "asia-south2-b": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-asia-south2-b-1760515813-01-0001",
+        "five-min-runner-asia-south2-b-1760515813-02-0001",
+        "five-min-runner-asia-south2-b-1760515813-03-0001",
+        "five-min-runner-asia-south2-b-1760515813-07-0001",
+        "five-min-runner-asia-south2-b-1760515813-04-0001",
+        "five-min-runner-asia-south2-b-1760515813-05-0001",
+        "five-min-runner-asia-south2-b-1760515813-06-0001",
+        "five-min-runner-asia-south2-b-1760515813-08-0001",
+        "five-min-runner-asia-south2-b-1760515814-09-0001",
+        "five-min-runner-asia-south2-b-1760515814-10-0001",
+        "five-min-runner-asia-south2-b-1760515814-11-0001",
+        "five-min-runner-asia-south2-b-1760515814-12-0001",
+        "five-min-runner-asia-south2-b-1760515814-13-0001",
+        "five-min-runner-asia-south2-b-1760515814-15-0001",
+        "five-min-runner-asia-south2-b-1760515814-16-0001",
+        "five-min-runner-asia-south2-b-1760515814-14-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "asia-south2",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Delhi",
+            "geo_taxonomy": {
+              "regions": [
+                "asia-south2"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/F8F6-1971-5039",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 298989000,
+                        "units": "8"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "asia-south2"
+            ],
+            "sku_id": "F8F6-1971-5039"
+          },
+          "skus_checked": 28356
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 8.298989
+      }
+    },
+    "asia-southeast1-b": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-asia-southeast1-b-1760515814-08-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-01-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-02-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-05-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-06-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-03-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-14-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-04-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-13-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-12-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-10-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-09-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-11-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-07-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-16-0001",
+        "five-min-runner-asia-southeast1-b-1760515814-15-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "asia-southeast1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Singapore",
+            "geo_taxonomy": {
+              "regions": [
+                "asia-southeast1"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/6012-C7D6-4721",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 291800000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "asia-southeast1"
+            ],
+            "sku_id": "6012-C7D6-4721"
+          },
+          "skus_checked": 10887
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.2918
+      }
+    },
+    "asia-southeast1-c": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-asia-southeast1-c-1760515808-02-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-03-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-08-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-07-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-09-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-05-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-14-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-10-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-01-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-16-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-13-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-04-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-15-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-12-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-06-0001",
+        "five-min-runner-asia-southeast1-c-1760515808-11-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "asia-southeast1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Singapore",
+            "geo_taxonomy": {
+              "regions": [
+                "asia-southeast1"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/6012-C7D6-4721",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 291800000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "asia-southeast1"
+            ],
+            "sku_id": "6012-C7D6-4721"
+          },
+          "skus_checked": 10887
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.2918
+      }
+    },
+    "europe-west1-c": {
+      "capacity_exhausted_detected": 4,
+      "instances_created": 12,
+      "instances_created_ids": [
+        "five-min-runner-europe-west1-c-1760515812-01-0001",
+        "five-min-runner-europe-west1-c-1760515812-07-0001",
+        "five-min-runner-europe-west1-c-1760515812-05-0001",
+        "five-min-runner-europe-west1-c-1760515812-02-0001",
+        "five-min-runner-europe-west1-c-1760515812-03-0001",
+        "five-min-runner-europe-west1-c-1760515812-04-0001",
+        "five-min-runner-europe-west1-c-1760515812-06-0001",
+        "five-min-runner-europe-west1-c-1760515814-15-0001",
+        "five-min-runner-europe-west1-c-1760515814-12-0001",
+        "five-min-runner-europe-west1-c-1760515814-13-0001",
+        "five-min-runner-europe-west1-c-1760515814-16-0001",
+        "five-min-runner-europe-west1-c-1760515814-14-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "europe-west1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Belgium",
+            "geo_taxonomy": {
+              "regions": [
+                "europe-west1"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/0C14-D702-D6D0",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 941700000,
+                        "units": "1"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "europe-west1"
+            ],
+            "sku_id": "0C14-D702-D6D0"
+          },
+          "skus_checked": 1403
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 1.9417
+      }
+    },
+    "europe-west3-c": {
+      "capacity_exhausted_detected": 11,
+      "instances_created": 5,
+      "instances_created_ids": [
+        "five-min-runner-europe-west3-c-1760515808-01-0001",
+        "five-min-runner-europe-west3-c-1760515808-08-0001",
+        "five-min-runner-europe-west3-c-1760515808-07-0001",
+        "five-min-runner-europe-west3-c-1760515808-04-0001",
+        "five-min-runner-europe-west3-c-1760515808-02-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "europe-west3",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Frankfurt",
+            "geo_taxonomy": {
+              "regions": [
+                "europe-west3"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/60B6-C06E-87F5",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 80800000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "europe-west3"
+            ],
+            "sku_id": "60B6-C06E-87F5"
+          },
+          "skus_checked": 10955
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.0808
+      }
+    },
+    "us-central1-a": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-central1-a-1760515811-02-0001",
+        "five-min-runner-us-central1-a-1760515811-03-0001",
+        "five-min-runner-us-central1-a-1760515811-01-0001",
+        "five-min-runner-us-central1-a-1760515811-05-0001",
+        "five-min-runner-us-central1-a-1760515811-04-0001",
+        "five-min-runner-us-central1-a-1760515811-11-0001",
+        "five-min-runner-us-central1-a-1760515811-06-0001",
+        "five-min-runner-us-central1-a-1760515811-08-0001",
+        "five-min-runner-us-central1-a-1760515811-07-0001",
+        "five-min-runner-us-central1-a-1760515811-10-0001",
+        "five-min-runner-us-central1-a-1760515811-09-0001",
+        "five-min-runner-us-central1-a-1760515811-13-0001",
+        "five-min-runner-us-central1-a-1760515811-14-0001",
+        "five-min-runner-us-central1-a-1760515811-12-0001",
+        "five-min-runner-us-central1-a-1760515811-15-0001",
+        "five-min-runner-us-central1-a-1760515811-16-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-central1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Americas",
+            "geo_taxonomy": {
+              "regions": [
+                "us-central1",
+                "us-east1",
+                "us-west1"
+              ],
+              "type_": 3
+            },
+            "name": "services/6F81-5844-456A/skus/7A6D-F74C-B0A3",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 253000000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-central1",
+              "us-east1",
+              "us-west1"
+            ],
+            "sku_id": "7A6D-F74C-B0A3"
+          },
+          "skus_checked": 13902
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.253
+      }
+    },
+    "us-central1-b": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-central1-b-1760515809-01-0001",
+        "five-min-runner-us-central1-b-1760515809-06-0001",
+        "five-min-runner-us-central1-b-1760515809-04-0001",
+        "five-min-runner-us-central1-b-1760515809-07-0001",
+        "five-min-runner-us-central1-b-1760515809-05-0001",
+        "five-min-runner-us-central1-b-1760515809-03-0001",
+        "five-min-runner-us-central1-b-1760515809-08-0001",
+        "five-min-runner-us-central1-b-1760515809-10-0001",
+        "five-min-runner-us-central1-b-1760515809-11-0001",
+        "five-min-runner-us-central1-b-1760515809-02-0001",
+        "five-min-runner-us-central1-b-1760515809-09-0001",
+        "five-min-runner-us-central1-b-1760515809-12-0001",
+        "five-min-runner-us-central1-b-1760515809-13-0001",
+        "five-min-runner-us-central1-b-1760515810-14-0001",
+        "five-min-runner-us-central1-b-1760515810-15-0001",
+        "five-min-runner-us-central1-b-1760515810-16-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-central1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Americas",
+            "geo_taxonomy": {
+              "regions": [
+                "us-central1",
+                "us-east1",
+                "us-west1"
+              ],
+              "type_": 3
+            },
+            "name": "services/6F81-5844-456A/skus/7A6D-F74C-B0A3",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 253000000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-central1",
+              "us-east1",
+              "us-west1"
+            ],
+            "sku_id": "7A6D-F74C-B0A3"
+          },
+          "skus_checked": 13902
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.253
+      }
+    },
+    "us-central1-c": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-central1-c-1760515808-03-0001",
+        "five-min-runner-us-central1-c-1760515808-01-0001",
+        "five-min-runner-us-central1-c-1760515809-07-0001",
+        "five-min-runner-us-central1-c-1760515808-02-0001",
+        "five-min-runner-us-central1-c-1760515808-04-0001",
+        "five-min-runner-us-central1-c-1760515808-06-0001",
+        "five-min-runner-us-central1-c-1760515809-08-0001",
+        "five-min-runner-us-central1-c-1760515808-05-0001",
+        "five-min-runner-us-central1-c-1760515813-11-0001",
+        "five-min-runner-us-central1-c-1760515813-09-0001",
+        "five-min-runner-us-central1-c-1760515813-12-0001",
+        "five-min-runner-us-central1-c-1760515813-15-0001",
+        "five-min-runner-us-central1-c-1760515813-16-0001",
+        "five-min-runner-us-central1-c-1760515813-14-0001",
+        "five-min-runner-us-central1-c-1760515813-10-0001",
+        "five-min-runner-us-central1-c-1760515813-13-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-central1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Americas",
+            "geo_taxonomy": {
+              "regions": [
+                "us-central1",
+                "us-east1",
+                "us-west1"
+              ],
+              "type_": 3
+            },
+            "name": "services/6F81-5844-456A/skus/7A6D-F74C-B0A3",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 253000000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-central1",
+              "us-east1",
+              "us-west1"
+            ],
+            "sku_id": "7A6D-F74C-B0A3"
+          },
+          "skus_checked": 13902
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.253
+      }
+    },
+    "us-east4-a": {
+      "capacity_exhausted_detected": 3,
+      "instances_created": 13,
+      "instances_created_ids": [
+        "five-min-runner-us-east4-a-1760515812-03-0001",
+        "five-min-runner-us-east4-a-1760515812-01-0001",
+        "five-min-runner-us-east4-a-1760515812-04-0001",
+        "five-min-runner-us-east4-a-1760515812-05-0001",
+        "five-min-runner-us-east4-a-1760515813-07-0001",
+        "five-min-runner-us-east4-a-1760515812-06-0001",
+        "five-min-runner-us-east4-a-1760515813-08-0001",
+        "five-min-runner-us-east4-a-1760515813-10-0001",
+        "five-min-runner-us-east4-a-1760515813-09-0001",
+        "five-min-runner-us-east4-a-1760515813-12-0001",
+        "five-min-runner-us-east4-a-1760515813-11-0001",
+        "five-min-runner-us-east4-a-1760515813-13-0001",
+        "five-min-runner-us-east4-a-1760515813-14-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-east4",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Virginia",
+            "geo_taxonomy": {
+              "regions": [
+                "us-east4"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/5034-88A0-BA40",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 763200000,
+                        "units": "1"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-east4"
+            ],
+            "sku_id": "5034-88A0-BA40"
+          },
+          "skus_checked": 9128
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 1.7632
+      }
+    },
+    "us-east4-b": {
+      "capacity_exhausted_detected": 5,
+      "instances_created": 11,
+      "instances_created_ids": [
+        "five-min-runner-us-east4-b-1760515812-01-0001",
+        "five-min-runner-us-east4-b-1760515812-02-0001",
+        "five-min-runner-us-east4-b-1760515812-03-0001",
+        "five-min-runner-us-east4-b-1760515814-04-0001",
+        "five-min-runner-us-east4-b-1760515814-10-0001",
+        "five-min-runner-us-east4-b-1760515814-08-0001",
+        "five-min-runner-us-east4-b-1760515814-09-0001",
+        "five-min-runner-us-east4-b-1760515814-13-0001",
+        "five-min-runner-us-east4-b-1760515814-15-0001",
+        "five-min-runner-us-east4-b-1760515814-14-0001",
+        "five-min-runner-us-east4-b-1760515814-11-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-east4",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Virginia",
+            "geo_taxonomy": {
+              "regions": [
+                "us-east4"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/5034-88A0-BA40",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 763200000,
+                        "units": "1"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-east4"
+            ],
+            "sku_id": "5034-88A0-BA40"
+          },
+          "skus_checked": 9128
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 1.7632
+      }
+    },
+    "us-east5-a": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-east5-a-1760515811-03-0001",
+        "five-min-runner-us-east5-a-1760515811-02-0001",
+        "five-min-runner-us-east5-a-1760515811-01-0001",
+        "five-min-runner-us-east5-a-1760515811-05-0001",
+        "five-min-runner-us-east5-a-1760515812-06-0001",
+        "five-min-runner-us-east5-a-1760515812-07-0001",
+        "five-min-runner-us-east5-a-1760515811-04-0001",
+        "five-min-runner-us-east5-a-1760515813-10-0001",
+        "five-min-runner-us-east5-a-1760515813-14-0001",
+        "five-min-runner-us-east5-a-1760515813-16-0001",
+        "five-min-runner-us-east5-a-1760515813-13-0001",
+        "five-min-runner-us-east5-a-1760515813-12-0001",
+        "five-min-runner-us-east5-a-1760515813-08-0001",
+        "five-min-runner-us-east5-a-1760515813-11-0001",
+        "five-min-runner-us-east5-a-1760515813-15-0001",
+        "five-min-runner-us-east5-a-1760515813-09-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-east5",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Columbus",
+            "geo_taxonomy": {
+              "regions": [
+                "us-east5"
+              ],
+              "type_": 2
+            },
+            "name": "services/6F81-5844-456A/skus/44F3-4572-E109",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 985600000,
+                        "units": "1"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-east5"
+            ],
+            "sku_id": "44F3-4572-E109"
+          },
+          "skus_checked": 7840
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 1.9856
+      }
+    },
+    "us-west1-a": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-west1-a-1760515808-01-0001",
+        "five-min-runner-us-west1-a-1760515808-02-0001",
+        "five-min-runner-us-west1-a-1760515808-04-0001",
+        "five-min-runner-us-west1-a-1760515808-03-0001",
+        "five-min-runner-us-west1-a-1760515808-05-0001",
+        "five-min-runner-us-west1-a-1760515808-06-0001",
+        "five-min-runner-us-west1-a-1760515808-08-0001",
+        "five-min-runner-us-west1-a-1760515808-07-0001",
+        "five-min-runner-us-west1-a-1760515808-10-0001",
+        "five-min-runner-us-west1-a-1760515808-16-0001",
+        "five-min-runner-us-west1-a-1760515808-13-0001",
+        "five-min-runner-us-west1-a-1760515808-11-0001",
+        "five-min-runner-us-west1-a-1760515808-14-0001",
+        "five-min-runner-us-west1-a-1760515808-12-0001",
+        "five-min-runner-us-west1-a-1760515808-09-0001",
+        "five-min-runner-us-west1-a-1760515808-15-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-west1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Americas",
+            "geo_taxonomy": {
+              "regions": [
+                "us-central1",
+                "us-east1",
+                "us-west1"
+              ],
+              "type_": 3
+            },
+            "name": "services/6F81-5844-456A/skus/7A6D-F74C-B0A3",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 253000000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-central1",
+              "us-east1",
+              "us-west1"
+            ],
+            "sku_id": "7A6D-F74C-B0A3"
+          },
+          "skus_checked": 13902
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.253
+      }
+    },
+    "us-west1-b": {
+      "capacity_exhausted_detected": 8,
+      "instances_created": 8,
+      "instances_created_ids": [
+        "five-min-runner-us-west1-b-1760515812-01-0001",
+        "five-min-runner-us-west1-b-1760515812-02-0001",
+        "five-min-runner-us-west1-b-1760515814-03-0001",
+        "five-min-runner-us-west1-b-1760515814-06-0001",
+        "five-min-runner-us-west1-b-1760515814-07-0001",
+        "five-min-runner-us-west1-b-1760515815-16-0001",
+        "five-min-runner-us-west1-b-1760515814-10-0001",
+        "five-min-runner-us-west1-b-1760515815-15-0001"
+      ],
+      "instances_requested": 16,
+      "spot_price_info": {
+        "currency": "USD",
+        "debug_info": {
+          "pricing_note": "GPU component pricing (per GPU or core)",
+          "region": "us-west1",
+          "sku_info": {
+            "category": {
+              "resource_family": "Compute",
+              "resource_group": "GPU",
+              "service_display_name": "Compute Engine",
+              "usage_type": "Preemptible"
+            },
+            "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Americas",
+            "geo_taxonomy": {
+              "regions": [
+                "us-central1",
+                "us-east1",
+                "us-west1"
+              ],
+              "type_": 3
+            },
+            "name": "services/6F81-5844-456A/skus/7A6D-F74C-B0A3",
+            "pricing_info": [
+              {
+                "currency_conversion_rate": 1.0,
+                "effective_time": "2025-10-15T04:11:44.092764Z",
+                "pricing_expression": {
+                  "base_unit": "s",
+                  "base_unit_conversion_factor": 3600.0,
+                  "base_unit_description": "second",
+                  "display_quantity": 1.0,
+                  "tiered_rates": [
+                    {
+                      "start_usage_amount": 0.0,
+                      "unit_price": {
+                        "currency_code": "USD",
+                        "nanos": 253000000,
+                        "units": "2"
+                      }
+                    }
+                  ],
+                  "usage_unit": "h",
+                  "usage_unit_description": "hour"
+                },
+                "summary": ""
+              }
+            ],
+            "service_provider_name": "Google",
+            "service_regions": [
+              "us-central1",
+              "us-east1",
+              "us-west1"
+            ],
+            "sku_id": "7A6D-F74C-B0A3"
+          },
+          "skus_checked": 13902
+        },
+        "error": null,
+        "pricing_available": true,
+        "source": "billing_catalog_api",
+        "spot_price_usd_per_hour": 2.253
+      }
+    }
+  },
+  "zones_probed": [
+    "us-east4-a",
+    "us-east5-a",
+    "us-east4-b",
+    "us-west1-b",
+    "us-west1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-a",
+    "europe-west3-c",
+    "europe-west1-c",
+    "asia-southeast1-c",
+    "asia-south2-b",
+    "asia-southeast1-b"
+  ]
+}

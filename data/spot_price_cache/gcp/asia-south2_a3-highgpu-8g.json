@@ -1,0 +1,49 @@
+{
+  "region": "asia-south2",
+  "machine_type": "a3-highgpu-8g",
+  "currency": "USD",
+  "price": 69.910115776,
+  "price_unit": "h",
+  "fetched_at": "2025-10-23T00:40:03.993569+00:00",
+  "components": [
+    {
+      "label": "cpu",
+      "sku_id": "266C-EA30-342E",
+      "description": "Spot Preemptible A3 Instance Core running in Delhi",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.02160042,
+      "unit_price": 0.02160042,
+      "quantity": 96.0,
+      "component_total": 2.07364032,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "ram",
+      "sku_id": "151B-CB5D-ECDE",
+      "description": "Spot Preemptible A3 Instance Ram running in Delhi",
+      "usage_unit": "GiBy.h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.001880942,
+      "unit_price": 0.001880942,
+      "quantity": 768.0,
+      "component_total": 1.444563456,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "gpu",
+      "sku_id": "F8F6-1971-5039",
+      "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Delhi",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 8.298989,
+      "unit_price": 8.298989,
+      "quantity": 8.0,
+      "component_total": 66.391912,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    }
+  ],
+  "on_demand_price": 99.1213232,
+  "on_demand_price_unit": "h",
+  "effective_time": "2025-10-22T19:53:14.655269+00:00"
+}

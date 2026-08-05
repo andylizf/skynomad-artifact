@@ -1,0 +1,49 @@
+{
+  "region": "asia-southeast1",
+  "machine_type": "a3-highgpu-8g",
+  "currency": "USD",
+  "price": 19.256383999999997,
+  "price_unit": "h",
+  "fetched_at": "2025-10-23T00:42:09.294428+00:00",
+  "components": [
+    {
+      "label": "cpu",
+      "sku_id": "E359-EB9E-506F",
+      "description": "Spot Preemptible A3 Instance Core running in Singapore",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.00566,
+      "unit_price": 0.00566,
+      "quantity": 96.0,
+      "component_total": 0.5433600000000001,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "ram",
+      "sku_id": "E6C3-FDE5-8E4E",
+      "description": "Spot Preemptible A3 Instance Ram running in Singapore",
+      "usage_unit": "GiBy.h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.000493,
+      "unit_price": 0.000493,
+      "quantity": 768.0,
+      "component_total": 0.37862399999999996,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "gpu",
+      "sku_id": "6012-C7D6-4721",
+      "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Singapore",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 2.2918,
+      "unit_price": 2.2918,
+      "quantity": 8.0,
+      "component_total": 18.3344,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    }
+  ],
+  "on_demand_price": 107.00772038400001,
+  "on_demand_price_unit": "h",
+  "effective_time": "2025-10-22T19:53:14.655269+00:00"
+}

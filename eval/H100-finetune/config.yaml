@@ -1,0 +1,81 @@
+# ============================================================================
+# A100:8 Configuration (default)
+# ============================================================================
+MODELSIZE: 14
+MAX_SEQ_LEN: 64
+MAX_TRAIN_SAMPLES: 32000
+EPOCHS: 4
+GRAD_ACCUM_STEPS: 8
+BATCH_SIZE: 1
+SAVE_STEPS: 15
+SAVE_TOTAL_LIMIT: 3
+
+DEADLINE_RATIO: 1.5
+# Measured timing from real runs (A100:8)
+COLD_START_SECONDS: 258
+STEP_SECONDS: 55
+WORLD_SIZE: 8
+
+# ============================================================================
+# L4:4 Configuration
+# Use USE_L4=True in test.py to enable these settings
+# ============================================================================
+L4_MODELSIZE: 4
+L4_MAX_SEQ_LEN: 512
+L4_MAX_TRAIN_SAMPLES: 64000
+L4_EPOCHS: 1
+L4_GRAD_ACCUM_STEPS: 4
+L4_BATCH_SIZE: 1
+L4_SAVE_STEPS: 100
+L4_SAVE_TOTAL_LIMIT: 2
+
+# Measured timing from real runs (L4:4, ~27s/step)
+# total_steps = 64000 / (1 * 4 * 4) = 4000 steps
+# job_duration = 4000 * 27 = 108000s = 30h
+L4_COLD_START_SECONDS: 180
+L4_STEP_SECONDS: 27
+L4_WORLD_SIZE: 4
+
+# ============================================================================
+# A10G:4 Configuration
+# Use USE_GPU="A10G" in test.py to enable these settings
+# ============================================================================
+A10G_MODELSIZE: 4
+A10G_MAX_SEQ_LEN: 512
+# 57600 samples = 3600 steps * 30s = 108000s = 30h
+A10G_MAX_TRAIN_SAMPLES: 57600
+A10G_EPOCHS: 1
+A10G_GRAD_ACCUM_STEPS: 4
+A10G_BATCH_SIZE: 1
+A10G_SAVE_STEPS: 100
+A10G_SAVE_TOTAL_LIMIT: 2
+
+# Measured timing for A10G:4 (~30s/step, similar to L4)
+# total_steps = 57600 / (1 * 4 * 4) = 3600 steps
+# job_duration = 3600 * 30 = 108000s = 30h
+A10G_COLD_START_SECONDS: 200
+A10G_STEP_SECONDS: 30
+A10G_WORLD_SIZE: 4
+
+# ============================================================================
+# V100:4 Configuration
+# Use USE_GPU="V100" in test.py to enable these settings
+# Note: V100 needs --bf16 false --fp16 true --tf32 false
+# ============================================================================
+V100_MODELSIZE: 4
+V100_MAX_SEQ_LEN: 256
+# For quick test: 2048 samples = 64 steps = ~0.6h training
+# For full run: change to 64000 for ~35h
+V100_MAX_TRAIN_SAMPLES: 2048
+V100_EPOCHS: 1
+V100_GRAD_ACCUM_STEPS: 8
+V100_BATCH_SIZE: 1
+V100_SAVE_STEPS: 50
+V100_SAVE_TOTAL_LIMIT: 2
+
+# Estimated timing for V100:4 (~35s/step, slower than L4/A10G)
+# Quick test: 2048 / 32 = 64 steps * 35s = 2240s = ~0.6h
+# Full run: 64000 / 32 = 2000 steps * 35s = 70000s = ~19h
+V100_COLD_START_SECONDS: 200
+V100_STEP_SECONDS: 35
+V100_WORLD_SIZE: 4

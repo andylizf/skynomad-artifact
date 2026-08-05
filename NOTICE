@@ -1,0 +1,28 @@
+SkyNomad
+Copyright 2026 The SkyNomad Authors
+
+This product includes software developed at the Sky Computing Lab,
+University of California, Berkeley.
+
+Artifact for "SkyNomad: On Using Multi-Region Spot Instances to Minimize
+AI Batch Job Cost", NSDI '27 Spring.
+
+The spot availability traces distributed under data/ were collected by the
+authors from Google Cloud Platform and Amazon Web Services. They are released
+alongside this software under the same license.
+
+Third-party content
+-------------------
+
+paper.pdf is the accepted version of the paper this artifact accompanies
+(submitted under the double-blind alias "SkyVoyager"). It is included for
+reference. Copyright in the published version rests with the authors and
+USENIX under the terms of the NSDI '27 publication agreement; it is not
+covered by the Apache License 2.0 that governs the rest of this product.
+
+The figure PDFs under paper_figs/ are the figures from that paper, shipped so
+that artifact/verify_figs.py can diff reproduced output against them. Same
+copyright note applies.
+
+No other third-party document is redistributed here. Prior work is cited, not
+reproduced.

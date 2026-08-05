@@ -1,0 +1,177 @@
+name: a100x8-finetune
+
+# NOTE: This config aligns with SageMaker DLC environment for fair comparison
+# SageMaker uses: pytorch-training:2.5.1-gpu-py311-cu124
+# Key settings:
+#   - Python 3.11 (not 3.12)
+#   - PyTorch 2.5.1+cu124 (not 2.8.0+cu126)
+#   - Compatible dependency versions
+
+envs:
+  HF_TOKEN: <your Hugging Face token>
+  WANDB_API_KEY: 7d33290da47674f4ccd1b267581ee8b89b62296c
+  TOKENIZERS_PARALLELISM: "false"
+  PYTORCH_CUDA_ALLOC_CONF: expandable_segments:True
+  MODELSIZE: 14
+  # Force rclone VFS cache for MOUNT_CACHED to land on NVMe.
+  # Our SkyPilot patch also auto-detects NVMe, but this makes it explicit.
+  SKYPILOT_RCLONE_CACHE_DIR: /opt/dlami/nvme/sky-rclone-cache
+  MAX_SEQ_LEN: 64
+  MAX_TRAIN_SAMPLES: 32000
+  EPOCHS: 2
+  GRAD_ACCUM_STEPS: 8
+  BATCH_SIZE: 1
+  SAVE_STEPS: 15
+  SAVE_TOTAL_LIMIT: 3
+
+resources:
+  cloud: aws
+  image_id:
+    us-east-1: ami-0bd01199a9dd76709
+    us-east-2: ami-0a6f9c6bdb7123404
+    us-west-2: ami-04bcd33067fc7cd16
+    eu-central-1: ami-0d928364caad1bd52
+    ap-southeast-2: ami-0d53a60306ca7e710
+    eu-west-2: ami-01faefd27f10cc3b1
+    ap-northeast-1: ami-079f0a1acf524d738
+  accelerators: A100:8
+  disk_size: 1000
+  disk_tier: best
+  use_spot: true
+  # region: us-east-2
+  # Managed spot job recovery strategy
+  job_recovery:
+    strategy: EAGER_NEXT_REGION # Immediately move to next region on spot preemption
+    max_restarts_on_errors: 3 # Maximum number of restarts on errors
+
+workdir: eval/H100-finetune
+
+setup: |
+  # === PRE-WARM: Start checkpoint download in background ===
+  # NOTE: Must redirect stdout/stderr to avoid blocking Ray's stdout capture pipe
+  (
+    exec </dev/null
+    # Close inherited descriptors beyond stdout/stderr (already redirected to log)
+    for fd in /proc/$$/fd/*; do
+      fd_num=$(basename "$fd")
+      [ "$fd_num" -gt 2 ] 2>/dev/null && eval "exec $fd_num>&-" 2>/dev/null
+    done
+    CKPT_DIR="/opt/ml/checkpoints/qwen3_sft"
+    LATEST_CKPT=$(ls -1d ${CKPT_DIR}/checkpoint-* 2>/dev/null | sort -V | tail -1)
+    if [ -n "$LATEST_CKPT" ]; then
+      echo "PRE-WARM: Starting parallel download for $LATEST_CKPT"
+      for f in "$LATEST_CKPT"/*; do
+        [ -f "$f" ] && cat "$f" > /dev/null 2>&1 &
+      done
+      wait
+      echo "PRE-WARM: All files downloaded"
+    fi
+  ) > /tmp/prewarm.log 2>&1 &
+  # === END PRE-WARM ===
+
+  # === SageMaker-aligned environment: Python 3.11 + PyTorch 2.5.1 + cu124 ===
+  uv venv --seed --python 3.11 --clear
+  source .venv/bin/activate
+  # Using DLAMI base-with-single-cuda: drivers/CUDA preinstalled; ensure Fabric Manager if present
+  sudo systemctl enable --now nvidia-fabricmanager || true
+  nvidia-smi || true
+  # Install PyTorch 2.5.1 (CUDA 12.4 build) - matches SageMaker DLC exactly
+  uv pip install --upgrade --index-url https://download.pytorch.org/whl/cu124 \
+    torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1
+  # Install compatible HuggingFace stack - need transformers 4.51+ for Qwen3 support
+  uv pip install "transformers==4.51.3" "peft==0.15.2" "accelerate==1.1.1" "datasets==3.1.0" "huggingface_hub[hf_transfer]" "safetensors>=0.4.5" "sentencepiece==0.2.0" "tokenizers>=0.21.1" "bitsandbytes==0.44.1" "wandb"
+  python -c "import torch; print('cuda?', torch.cuda.is_available(), 'cuda', torch.version.cuda, 'torch', torch.version.__version__)"
+  python -c "import bitsandbytes as bnb"
+
+file_mounts:
+  /opt/ml/checkpoints/qwen3_sft:
+    store: s3
+    name: ${BUCKET_NAME}
+    source: s3://${BUCKET_NAME} # Bucket name for checkpoint storage
+    mode: MOUNT_CACHED # MOUNT mode syncs bidirectionally on spot recovery
+
+run: |
+  echo "Hello world"
+  source .venv/bin/activate
+
+  # === PRE-WARM: Trigger cache download for checkpoint files ===
+  CKPT_DIR="/opt/ml/checkpoints/qwen3_sft"
+  LATEST_CKPT=$(ls -1d ${CKPT_DIR}/checkpoint-* 2>/dev/null | sort -V | tail -1)
+  if [ -n "$LATEST_CKPT" ]; then
+    echo "PRE-WARM: Starting parallel download for $LATEST_CKPT"
+    # Trigger download of all files in parallel (rclone will handle with --transfers 16)
+    for f in "$LATEST_CKPT"/*; do
+      [ -f "$f" ] && cat "$f" > /dev/null 2>&1 &
+    done
+    echo "PRE-WARM: Waiting for downloads to complete..."
+    # Print file sizes every 30s while waiting (jobs -r shows only running jobs)
+    while [ "$(jobs -r | wc -l)" -gt 0 ]; do
+      sleep 30
+      echo "PRE-WARM: Download progress at $(date +%H:%M:%S):"
+      du -sh "${LATEST_CKPT}"/*.distcp 2>/dev/null | head -10
+      echo "PRE-WARM: Total: $(du -sh "${LATEST_CKPT}" 2>/dev/null | cut -f1)"
+    done
+    wait
+    echo "PRE-WARM: Downloads completed"
+
+    # Verify .metadata exists and has content (DCP format, can't use torch.load)
+    echo "CACHE-CHECK: Verifying checkpoint integrity..."
+    if [ -s "${LATEST_CKPT}/.metadata" ]; then
+      echo "CACHE-CHECK: .metadata OK ($(stat -c%s "${LATEST_CKPT}/.metadata") bytes)"
+    else
+      echo "CACHE-CHECK: .metadata missing or empty, skipping this checkpoint"
+      LATEST_CKPT=""
+    fi
+    # Check for 8 .distcp shard files (8-GPU setup)
+    if [ -n "$LATEST_CKPT" ]; then
+      SHARD_COUNT=$(ls -1 "${LATEST_CKPT}"/*.distcp 2>/dev/null | wc -l)
+      if [ "$SHARD_COUNT" -ge 8 ]; then
+        echo "CACHE-CHECK: ${SHARD_COUNT} .distcp shards OK"
+      else
+        echo "CACHE-CHECK: only ${SHARD_COUNT}/8 .distcp shards, skipping this checkpoint"
+        LATEST_CKPT=""
+      fi
+    fi
+  fi
+  # === END PRE-WARM ===
+
+  echo "=== VERIFY MOUNT_CACHED cache-dir on NVMe ==="
+  # Show the rclone mount line for the checkpoints mount
+  ps -eo pid,cmd | awk '/rclone mount .*\/opt\/ml\/checkpoints\/qwen3_sft/ {print}' || true
+  # Extract --cache-dir from the rclone mount cmd (supports --cache-dir=<path> or --cache-dir <path>)
+  CACHE_DIR=$(ps -eo cmd | awk '/rclone mount .*\/opt\/ml\/checkpoints\/qwen3_sft/ {for (i=1;i<=NF;i++){ if ($i=="--cache-dir"){print $(i+1); exit} if ($i ~ /^--cache-dir=/){print substr($i,12); exit}}}')
+  echo "cache-dir: ${CACHE_DIR:-<not-found>}"
+  if [[ -n "$CACHE_DIR" ]]; then
+    df -h "$CACHE_DIR" || true
+    FS_TYPE=$(stat -f -c %T "$CACHE_DIR" 2>/dev/null || echo unknown)
+    echo "fs-type: $FS_TYPE"
+    if [[ "$CACHE_DIR" == /opt/dlami/nvme/* || "$CACHE_DIR" == /mnt/nvme/* || "$CACHE_DIR" == /mnt/disks/local-ssd/* ]]; then
+      echo "NVME_CACHE_DIR_OK"
+    else
+      echo "NVME_CACHE_DIR_NOT_NVME"
+    fi
+  fi
+  echo "=== TRAINING (HF Trainer + FSDP, PyTorch 2.5.1 - SageMaker aligned) START: $(date) ==="
+  start_time=$(date +%s)
+  torchrun --nproc_per_node=8 train_qwen3_4b_qlora_single_gpu.py \
+    --model-id Qwen/Qwen3-${MODELSIZE}B \
+    --dataset-id microsoft/orca-math-word-problems-200k \
+    --output-dir /opt/ml/checkpoints/qwen3_sft \
+    --epochs ${EPOCHS} --per-device-train-batch-size ${BATCH_SIZE} --grad-accum-steps ${GRAD_ACCUM_STEPS} \
+    --optim adamw_torch \
+    --save-steps ${SAVE_STEPS} \
+    --gradient-checkpointing true --max-train-samples ${MAX_TRAIN_SAMPLES} --max-eval-samples 1000 \
+    --fsdp-offload true \
+    --max-seq-length $MAX_SEQ_LEN \
+    --async-checkpoint true \
+    --save-total-limit ${SAVE_TOTAL_LIMIT} \
+    --dcp-resume-optim false
+  end_time=$(date +%s)
+  duration=$((end_time - start_time))
+  echo "=== TRAINING COMPLETED: $(date) ==="
+  echo "=== TOTAL DURATION: ${duration} seconds ($(($duration / 60)) minutes) ==="
+
+  echo "=== OUTPUT SNAPSHOT (top-level) ==="
+  ls -l /opt/ml/checkpoints/qwen3_sft | head -n 80
+  echo "=== LATEST CHECKPOINT DIRS ==="
+  ls -1d /opt/ml/checkpoints/qwen3_sft/checkpoint-* 2>/dev/null | tail -n 5 || true

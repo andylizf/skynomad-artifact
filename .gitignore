@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+outputs/
+wandb/
+data/converted_multi_region_aligned/
+data/converted_multi_region_aligned_h100_16_merged/
+data/h100_16_raw_merged/
+*.egg-info/
+
+# Sweep logs from the reproduction and rerun scripts.
+logs/

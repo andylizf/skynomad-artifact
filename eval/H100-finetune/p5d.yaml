@@ -1,0 +1,74 @@
+name: a100x8-finetune
+
+envs:
+  HF_TOKEN: <your Hugging Face token>
+  WANDB_API_KEY: 7d33290da47674f4ccd1b267581ee8b89b62296c
+  TOKENIZERS_PARALLELISM: "false"
+  PYTORCH_CUDA_ALLOC_CONF: expandable_segments:True
+  MODELSIZE: 32
+  MAX_SEQ_LEN: 256
+  MAX_TRAIN_SAMPLES: 32000
+  EPOCHS: 2
+  GRAD_ACCUM_STEPS: 8
+  BATCH_SIZE: 1
+  SAVE_STEPS: 15
+
+resources:
+  infra: aws/us-east-2
+  image_id: ami-0a6f9c6bdb7123404
+  accelerators: H100:8
+  disk_size: 1000
+  use_spot: true
+  # Managed spot job recovery strategy
+  job_recovery:
+    strategy: EAGER_NEXT_REGION # Immediately move to next region on spot preemption
+    max_restarts_on_errors: 3 # Maximum number of restarts on errors
+
+workdir: eval/H100-finetune
+
+setup: |
+  # bash /tmp/setup.sh
+  uv venv --seed --python 3.12 --clear
+  source .venv/bin/activate
+  # Using DLAMI base-with-single-cuda: drivers/CUDA preinstalled; ensure Fabric Manager if present
+  sudo systemctl enable --now nvidia-fabricmanager || true
+  nvidia-smi || true
+  # Install PyTorch 2.8.0 (CUDA 12.6 build)
+  uv pip install --upgrade --index-url https://download.pytorch.org/whl/cu126 \
+    torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0
+  uv pip install "transformers==4.51.3" "peft==0.15.2" "accelerate==1.6.0" "datasets==3.5.1" "huggingface_hub[hf_transfer]" "safetensors>=0.5.2" "sentencepiece==0.2.0" "tokenizers>=0.21.1" "bitsandbytes==0.45.5" "wandb"
+  python -c "import torch; print('cuda?', torch.cuda.is_available(), 'cuda', torch.version.cuda, 'torch', torch.version.__version__)"
+  python -c "import bitsandbytes as bnb"
+  # uv pip install --no-build-isolation https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
+
+file_mounts:
+  /opt/ml/checkpoints/qwen3_sft:
+    store: s3
+    name: qwen3-32b-sft-checkpoints-real2 # Bucket name for checkpoint storage
+    mode: MOUNT_CACHED # MOUNT mode syncs bidirectionally on spot recovery
+
+run: |
+  echo "Hello world"
+  source .venv/bin/activate
+  echo "=== TRAINING START: $(date) ==="
+  start_time=$(date +%s)
+  torchrun --nproc_per_node=8 train_qwen3_4b_qlora_single_gpu.py \
+    --model-id Qwen/Qwen3-${MODELSIZE}B \
+    --dataset-id microsoft/orca-math-word-problems-200k \
+    --output-dir /opt/ml/checkpoints/qwen3_sft \
+    --epochs ${EPOCHS} --per-device-train-batch-size ${BATCH_SIZE} --grad-accum-steps ${GRAD_ACCUM_STEPS} \
+    --optim adamw_torch \
+    --save-steps ${SAVE_STEPS} \
+    --gradient-checkpointing true --max-train-samples ${MAX_TRAIN_SAMPLES} --max-eval-samples 1000 \
+    --fsdp-offload true \
+    --max-seq-length $MAX_SEQ_LEN \
+    --async-checkpoint true
+  end_time=$(date +%s)
+  duration=$((end_time - start_time))
+  echo "=== TRAINING COMPLETED: $(date) ==="
+  echo "=== TOTAL DURATION: ${duration} seconds ($(($duration / 60)) minutes) ==="
+
+  echo "=== OUTPUT SNAPSHOT (top-level) ==="
+  ls -l /opt/ml/checkpoints/qwen3_sft | head -n 80
+  echo "=== LATEST CHECKPOINT DIRS ==="
+  ls -1d /opt/ml/checkpoints/qwen3_sft/checkpoint-* 2>/dev/null | tail -n 5 || true

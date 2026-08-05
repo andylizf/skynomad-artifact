@@ -1,0 +1,246 @@
+{
+  "duration_human": "2m 15s",
+  "duration_sec": 134.539,
+  "ended_at": "2025-10-07T16:12:14.544724-07:00",
+  "interval_human": "10m 0s",
+  "interval_sec": 600,
+  "logs_path": "/home/gcpuser/spot-trace-prober/data/logs/run-20251007-161000-015c3b96.log",
+  "notes": "",
+  "run_id": "20251007-161000-015c3b96",
+  "scheduled_at": "2025-10-07T16:10:00.003549-07:00",
+  "started_at": "2025-10-07T16:10:00.005433-07:00",
+  "status": "success",
+  "total_instances_created": 126,
+  "total_instances_requested": 208,
+  "zone_results": {
+    "asia-south2-b": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-asia-south2-b-1759878603-01-0001",
+        "five-min-runner-asia-south2-b-1759878603-02-0001",
+        "five-min-runner-asia-south2-b-1759878603-04-0001",
+        "five-min-runner-asia-south2-b-1759878603-03-0001",
+        "five-min-runner-asia-south2-b-1759878603-05-0001",
+        "five-min-runner-asia-south2-b-1759878603-07-0001",
+        "five-min-runner-asia-south2-b-1759878603-06-0001",
+        "five-min-runner-asia-south2-b-1759878603-08-0001",
+        "five-min-runner-asia-south2-b-1759878603-09-0001",
+        "five-min-runner-asia-south2-b-1759878603-10-0001",
+        "five-min-runner-asia-south2-b-1759878603-11-0001",
+        "five-min-runner-asia-south2-b-1759878603-12-0001",
+        "five-min-runner-asia-south2-b-1759878605-13-0001",
+        "five-min-runner-asia-south2-b-1759878605-14-0001",
+        "five-min-runner-asia-south2-b-1759878605-16-0001",
+        "five-min-runner-asia-south2-b-1759878605-15-0001"
+      ],
+      "instances_requested": 16
+    },
+    "asia-southeast1-b": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-asia-southeast1-b-1759878602-01-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-04-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-02-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-03-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-07-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-05-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-06-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-08-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-12-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-09-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-10-0001",
+        "five-min-runner-asia-southeast1-b-1759878603-13-0001",
+        "five-min-runner-asia-southeast1-b-1759878602-11-0001",
+        "five-min-runner-asia-southeast1-b-1759878603-15-0001",
+        "five-min-runner-asia-southeast1-b-1759878603-14-0001",
+        "five-min-runner-asia-southeast1-b-1759878603-16-0001"
+      ],
+      "instances_requested": 16
+    },
+    "asia-southeast1-c": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-asia-southeast1-c-1759878600-01-0001",
+        "five-min-runner-asia-southeast1-c-1759878602-03-0001",
+        "five-min-runner-asia-southeast1-c-1759878602-02-0001",
+        "five-min-runner-asia-southeast1-c-1759878602-04-0001",
+        "five-min-runner-asia-southeast1-c-1759878602-05-0001",
+        "five-min-runner-asia-southeast1-c-1759878602-06-0001",
+        "five-min-runner-asia-southeast1-c-1759878602-07-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-09-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-11-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-10-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-08-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-12-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-13-0001",
+        "five-min-runner-asia-southeast1-c-1759878604-14-0001",
+        "five-min-runner-asia-southeast1-c-1759878605-15-0001",
+        "five-min-runner-asia-southeast1-c-1759878605-16-0001"
+      ],
+      "instances_requested": 16
+    },
+    "europe-west1-c": {
+      "capacity_exhausted_detected": 12,
+      "instances_created": 4,
+      "instances_created_ids": [
+        "five-min-runner-europe-west1-c-1759878604-01-0001",
+        "five-min-runner-europe-west1-c-1759878604-03-0001",
+        "five-min-runner-europe-west1-c-1759878605-11-0001",
+        "five-min-runner-europe-west1-c-1759878605-14-0001"
+      ],
+      "instances_requested": 16
+    },
+    "europe-west3-c": {
+      "capacity_exhausted_detected": 16,
+      "instances_created": 0,
+      "instances_created_ids": [],
+      "instances_requested": 16
+    },
+    "us-central1-a": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-central1-a-1759878605-01-0001",
+        "five-min-runner-us-central1-a-1759878605-02-0001",
+        "five-min-runner-us-central1-a-1759878605-03-0001",
+        "five-min-runner-us-central1-a-1759878605-05-0001",
+        "five-min-runner-us-central1-a-1759878605-04-0001",
+        "five-min-runner-us-central1-a-1759878605-13-0001",
+        "five-min-runner-us-central1-a-1759878605-07-0001",
+        "five-min-runner-us-central1-a-1759878605-15-0001",
+        "five-min-runner-us-central1-a-1759878605-12-0001",
+        "five-min-runner-us-central1-a-1759878605-09-0001",
+        "five-min-runner-us-central1-a-1759878605-11-0001",
+        "five-min-runner-us-central1-a-1759878605-14-0001",
+        "five-min-runner-us-central1-a-1759878605-08-0001",
+        "five-min-runner-us-central1-a-1759878605-10-0001",
+        "five-min-runner-us-central1-a-1759878605-16-0001",
+        "five-min-runner-us-central1-a-1759878605-06-0001"
+      ],
+      "instances_requested": 16
+    },
+    "us-central1-b": {
+      "capacity_exhausted_detected": 12,
+      "instances_created": 4,
+      "instances_created_ids": [
+        "five-min-runner-us-central1-b-1759878600-04-0001",
+        "five-min-runner-us-central1-b-1759878603-09-0001",
+        "five-min-runner-us-central1-b-1759878603-11-0001",
+        "five-min-runner-us-central1-b-1759878603-14-0001"
+      ],
+      "instances_requested": 16
+    },
+    "us-central1-c": {
+      "capacity_exhausted_detected": 10,
+      "instances_created": 6,
+      "instances_created_ids": [
+        "five-min-runner-us-central1-c-1759878600-05-0001",
+        "five-min-runner-us-central1-c-1759878600-03-0001",
+        "five-min-runner-us-central1-c-1759878600-09-0001",
+        "five-min-runner-us-central1-c-1759878600-12-0001",
+        "five-min-runner-us-central1-c-1759878600-11-0001",
+        "five-min-runner-us-central1-c-1759878600-16-0001"
+      ],
+      "instances_requested": 16
+    },
+    "us-east4-a": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-east4-a-1759878604-01-0001",
+        "five-min-runner-us-east4-a-1759878604-02-0001",
+        "five-min-runner-us-east4-a-1759878604-03-0001",
+        "five-min-runner-us-east4-a-1759878604-04-0001",
+        "five-min-runner-us-east4-a-1759878604-06-0001",
+        "five-min-runner-us-east4-a-1759878604-07-0001",
+        "five-min-runner-us-east4-a-1759878604-05-0001",
+        "five-min-runner-us-east4-a-1759878604-08-0001",
+        "five-min-runner-us-east4-a-1759878605-11-0001",
+        "five-min-runner-us-east4-a-1759878605-15-0001",
+        "five-min-runner-us-east4-a-1759878605-09-0001",
+        "five-min-runner-us-east4-a-1759878605-16-0001",
+        "five-min-runner-us-east4-a-1759878605-10-0001",
+        "five-min-runner-us-east4-a-1759878605-14-0001",
+        "five-min-runner-us-east4-a-1759878605-13-0001",
+        "five-min-runner-us-east4-a-1759878605-12-0001"
+      ],
+      "instances_requested": 16
+    },
+    "us-east4-b": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-east4-b-1759878601-01-0001",
+        "five-min-runner-us-east4-b-1759878601-02-0001",
+        "five-min-runner-us-east4-b-1759878601-03-0001",
+        "five-min-runner-us-east4-b-1759878603-04-0001",
+        "five-min-runner-us-east4-b-1759878603-05-0001",
+        "five-min-runner-us-east4-b-1759878604-08-0001",
+        "five-min-runner-us-east4-b-1759878604-06-0001",
+        "five-min-runner-us-east4-b-1759878604-07-0001",
+        "five-min-runner-us-east4-b-1759878604-09-0001",
+        "five-min-runner-us-east4-b-1759878604-10-0001",
+        "five-min-runner-us-east4-b-1759878604-12-0001",
+        "five-min-runner-us-east4-b-1759878604-11-0001",
+        "five-min-runner-us-east4-b-1759878605-13-0001",
+        "five-min-runner-us-east4-b-1759878605-14-0001",
+        "five-min-runner-us-east4-b-1759878605-15-0001",
+        "five-min-runner-us-east4-b-1759878605-16-0001"
+      ],
+      "instances_requested": 16
+    },
+    "us-east5-a": {
+      "capacity_exhausted_detected": 0,
+      "instances_created": 16,
+      "instances_created_ids": [
+        "five-min-runner-us-east5-a-1759878600-01-0001",
+        "five-min-runner-us-east5-a-1759878601-02-0001",
+        "five-min-runner-us-east5-a-1759878601-03-0001",
+        "five-min-runner-us-east5-a-1759878604-04-0001",
+        "five-min-runner-us-east5-a-1759878604-07-0001",
+        "five-min-runner-us-east5-a-1759878604-09-0001",
+        "five-min-runner-us-east5-a-1759878604-05-0001",
+        "five-min-runner-us-east5-a-1759878604-08-0001",
+        "five-min-runner-us-east5-a-1759878605-15-0001",
+        "five-min-runner-us-east5-a-1759878605-12-0001",
+        "five-min-runner-us-east5-a-1759878605-13-0001",
+        "five-min-runner-us-east5-a-1759878605-11-0001",
+        "five-min-runner-us-east5-a-1759878605-14-0001",
+        "five-min-runner-us-east5-a-1759878604-06-0001",
+        "five-min-runner-us-east5-a-1759878605-16-0001",
+        "five-min-runner-us-east5-a-1759878605-10-0001"
+      ],
+      "instances_requested": 16
+    },
+    "us-west1-a": {
+      "capacity_exhausted_detected": 16,
+      "instances_created": 0,
+      "instances_created_ids": [],
+      "instances_requested": 16
+    },
+    "us-west1-b": {
+      "capacity_exhausted_detected": 16,
+      "instances_created": 0,
+      "instances_created_ids": [],
+      "instances_requested": 16
+    }
+  },
+  "zones_probed": [
+    "us-east4-a",
+    "us-east5-a",
+    "us-east4-b",
+    "us-west1-b",
+    "us-west1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-a",
+    "europe-west3-c",
+    "europe-west1-c",
+    "asia-southeast1-c",
+    "asia-south2-b",
+    "asia-southeast1-b"
+  ]
+}

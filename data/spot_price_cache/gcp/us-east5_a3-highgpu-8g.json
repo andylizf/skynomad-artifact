@@ -1,0 +1,49 @@
+{
+  "region": "us-east5",
+  "machine_type": "a3-highgpu-8g",
+  "currency": "USD",
+  "price": 16.72672,
+  "price_unit": "h",
+  "fetched_at": "2025-10-23T00:51:47.561297+00:00",
+  "components": [
+    {
+      "label": "cpu",
+      "sku_id": "E315-31D4-3B3D",
+      "description": "Spot Preemptible A3 Instance Core running in Columbus",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.00517,
+      "unit_price": 0.00517,
+      "quantity": 96.0,
+      "component_total": 0.49632,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "ram",
+      "sku_id": "67B6-8559-D2CC",
+      "description": "Spot Preemptible A3 Instance Ram running in Columbus",
+      "usage_unit": "GiBy.h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.00045,
+      "unit_price": 0.00045,
+      "quantity": 768.0,
+      "component_total": 0.3456,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "gpu",
+      "sku_id": "44F3-4572-E109",
+      "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Columbus",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 1.9856,
+      "unit_price": 1.9856,
+      "quantity": 8.0,
+      "component_total": 15.8848,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    }
+  ],
+  "on_demand_price": 92.94835699199999,
+  "on_demand_price_unit": "h",
+  "effective_time": "2025-10-22T19:53:14.655269+00:00"
+}

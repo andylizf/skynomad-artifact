@@ -1,0 +1,49 @@
+{
+  "region": "europe-west3",
+  "machine_type": "a3-highgpu-8g",
+  "currency": "USD",
+  "price": 17.529215999999998,
+  "price_unit": "h",
+  "fetched_at": "2025-10-23T00:46:05.090685+00:00",
+  "components": [
+    {
+      "label": "cpu",
+      "sku_id": "B035-0D67-8DD0",
+      "description": "Spot Preemptible A3 Instance Core running in Frankfurt",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.00542,
+      "unit_price": 0.00542,
+      "quantity": 96.0,
+      "component_total": 0.52032,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "ram",
+      "sku_id": "EFF3-E7D6-F10E",
+      "description": "Spot Preemptible A3 Instance Ram running in Frankfurt",
+      "usage_unit": "GiBy.h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.000472,
+      "unit_price": 0.000472,
+      "quantity": 768.0,
+      "component_total": 0.362496,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "gpu",
+      "sku_id": "60B6-C06E-87F5",
+      "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Frankfurt",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 2.0808,
+      "unit_price": 2.0808,
+      "quantity": 8.0,
+      "component_total": 16.6464,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    }
+  ],
+  "on_demand_price": 97.38001420799999,
+  "on_demand_price_unit": "h",
+  "effective_time": "2025-10-22T19:53:14.655269+00:00"
+}

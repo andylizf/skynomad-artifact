@@ -1,0 +1,49 @@
+{
+  "region": "us-east4",
+  "machine_type": "a3-highgpu-8g",
+  "currency": "USD",
+  "price": 14.853439999999999,
+  "price_unit": "h",
+  "fetched_at": "2025-10-23T00:49:51.908676+00:00",
+  "components": [
+    {
+      "label": "cpu",
+      "sku_id": "EB0B-0940-C09B",
+      "description": "Spot Preemptible A3 Instance Core running in Virginia",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.00459,
+      "unit_price": 0.00459,
+      "quantity": 96.0,
+      "component_total": 0.44064000000000003,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "ram",
+      "sku_id": "5776-95F4-C430",
+      "description": "Spot Preemptible A3 Instance Ram running in Virginia",
+      "usage_unit": "GiBy.h",
+      "billing_unit": "h",
+      "raw_unit_price": 0.0004,
+      "unit_price": 0.0004,
+      "quantity": 768.0,
+      "component_total": 0.30720000000000003,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    },
+    {
+      "label": "gpu",
+      "sku_id": "5034-88A0-BA40",
+      "description": "Nvidia H100 80GB GPU attached to Spot Preemptible VMs running in Virginia",
+      "usage_unit": "h",
+      "billing_unit": "h",
+      "raw_unit_price": 1.7631999999999999,
+      "unit_price": 1.7631999999999999,
+      "quantity": 8.0,
+      "component_total": 14.105599999999999,
+      "effective_time": "2025-10-22T19:53:14.655269+00:00"
+    }
+  ],
+  "on_demand_price": 82.52543712,
+  "on_demand_price_unit": "h",
+  "effective_time": "2025-10-22T19:53:14.655269+00:00"
+}

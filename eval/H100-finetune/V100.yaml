@@ -1,0 +1,180 @@
+name: v100-finetune-test
+
+envs:
+  HF_TOKEN: <your Hugging Face token>
+  WANDB_API_KEY: 7d33290da47674f4ccd1b267581ee8b89b62296c
+  TOKENIZERS_PARALLELISM: "false"
+  PYTORCH_CUDA_ALLOC_CONF: expandable_segments:True
+  MODELSIZE: 4
+  SKYPILOT_RCLONE_CACHE_DIR: /opt/dlami/nvme/sky-rclone-cache
+  # V100 has less VRAM (16/32GB), use shorter seq len
+  MAX_SEQ_LEN: 256
+  MAX_TRAIN_SAMPLES: 1000
+  EPOCHS: 1
+  GRAD_ACCUM_STEPS: 8
+  BATCH_SIZE: 1
+  SAVE_STEPS: 100
+  SAVE_TOTAL_LIMIT: 2
+  NUM_GPUS: 4
+
+resources:
+  cloud: aws
+  region: us-west-2
+  accelerators: V100:4
+  disk_size: 500
+  disk_tier: best
+  use_spot: true
+  job_recovery:
+    strategy: EAGER_NEXT_REGION
+    max_restarts_on_errors: 3
+
+workdir: eval/H100-finetune
+
+setup: |
+  # === PRE-WARM: Start checkpoint download in background ===
+  (
+    exec </dev/null
+    for fd in /proc/$$/fd/*; do
+      fd_num=$(basename "$fd")
+      [ "$fd_num" -gt 2 ] 2>/dev/null && eval "exec $fd_num>&-" 2>/dev/null
+    done
+    CKPT_DIR="/opt/ml/checkpoints/qwen3_sft"
+    LATEST_CKPT=$(ls -1d ${CKPT_DIR}/checkpoint-* 2>/dev/null | sort -V | tail -1)
+    if [ -n "$LATEST_CKPT" ]; then
+      echo "PRE-WARM: Starting parallel download for $LATEST_CKPT"
+      for f in "$LATEST_CKPT"/*; do
+        [ -f "$f" ] && cat "$f" > /dev/null 2>&1 &
+      done
+      wait
+      echo "PRE-WARM: All files downloaded"
+    fi
+  ) > /tmp/prewarm.log 2>&1 &
+  # === END PRE-WARM ===
+
+  uv venv --seed --python 3.12 --clear
+  source .venv/bin/activate
+  nvidia-smi || true
+  # Install PyTorch (CUDA 11.8 for V100 compatibility)
+  uv pip install --upgrade --index-url https://download.pytorch.org/whl/cu118 \
+    torch==2.4.0 torchvision torchaudio
+  uv pip install "transformers==4.51.3" "peft==0.15.2" "accelerate==1.6.0" "datasets==3.5.1" "huggingface_hub[hf_transfer]" "safetensors>=0.5.2" "sentencepiece==0.2.0" "tokenizers>=0.21.1" "bitsandbytes==0.45.5" "wandb"
+  python -c "import torch; print('cuda?', torch.cuda.is_available(), 'cuda', torch.version.cuda, 'torch', torch.version.__version__)"
+  python -c "import bitsandbytes as bnb"
+
+file_mounts:
+  /opt/ml/checkpoints/qwen3_sft:
+    store: s3
+    name: ${BUCKET_NAME}
+    source: s3://${BUCKET_NAME}
+    mode: MOUNT_CACHED
+
+run: |
+  source .venv/bin/activate
+
+  # === PRE-WARM: Trigger cache download for checkpoint files ===
+  CKPT_DIR="/opt/ml/checkpoints/qwen3_sft"
+  LATEST_CKPT=$(ls -1d ${CKPT_DIR}/checkpoint-* 2>/dev/null | sort -V | tail -1)
+  if [ -n "$LATEST_CKPT" ]; then
+    echo "PRE-WARM: Starting parallel download for $LATEST_CKPT"
+    for f in "$LATEST_CKPT"/*; do
+      [ -f "$f" ] && cat "$f" > /dev/null 2>&1 &
+    done
+    echo "PRE-WARM: Waiting for downloads to complete..."
+    while [ "$(jobs -r | wc -l)" -gt 0 ]; do
+      sleep 30
+      echo "PRE-WARM: Download progress at $(date +%H:%M:%S):"
+      du -sh "${LATEST_CKPT}"/*.distcp 2>/dev/null | head -10
+      echo "PRE-WARM: Total: $(du -sh "${LATEST_CKPT}" 2>/dev/null | cut -f1)"
+    done
+    wait
+    echo "PRE-WARM: Downloads completed"
+
+    # Verify .metadata exists and has content
+    echo "CACHE-CHECK: Verifying checkpoint integrity..."
+    if [ -s "${LATEST_CKPT}/.metadata" ]; then
+      echo "CACHE-CHECK: .metadata OK ($(stat -c%s "${LATEST_CKPT}/.metadata") bytes)"
+    else
+      echo "CACHE-CHECK: .metadata missing or empty, skipping this checkpoint"
+      LATEST_CKPT=""
+    fi
+    # Check for NUM_GPUS .distcp shard files
+    if [ -n "$LATEST_CKPT" ]; then
+      SHARD_COUNT=$(ls -1 "${LATEST_CKPT}"/*.distcp 2>/dev/null | wc -l)
+      if [ "$SHARD_COUNT" -ge ${NUM_GPUS} ]; then
+        echo "CACHE-CHECK: ${SHARD_COUNT} .distcp shards OK"
+      else
+        echo "CACHE-CHECK: only ${SHARD_COUNT}/${NUM_GPUS} .distcp shards, skipping this checkpoint"
+        LATEST_CKPT=""
+      fi
+    fi
+  fi
+  # === END PRE-WARM ===
+
+  echo "=== VERIFY MOUNT_CACHED cache-dir on NVMe ==="
+  ps -eo pid,cmd | awk '/rclone mount .*\/opt\/ml\/checkpoints\/qwen3_sft/ {print}' || true
+  CACHE_DIR=$(ps -eo cmd | awk '/rclone mount .*\/opt\/ml\/checkpoints\/qwen3_sft/ {for (i=1;i<=NF;i++){ if ($i=="--cache-dir"){print $(i+1); exit} if ($i ~ /^--cache-dir=/){print substr($i,12); exit}}}')
+  echo "cache-dir: ${CACHE_DIR:-<not-found>}"
+  if [[ -n "$CACHE_DIR" ]]; then
+    df -h "$CACHE_DIR" || true
+    FS_TYPE=$(stat -f -c %T "$CACHE_DIR" 2>/dev/null || echo unknown)
+    echo "fs-type: $FS_TYPE"
+    if [[ "$CACHE_DIR" == /opt/dlami/nvme/* || "$CACHE_DIR" == /mnt/nvme/* || "$CACHE_DIR" == /mnt/disks/local-ssd/* ]]; then
+      echo "NVME_CACHE_DIR_OK"
+    else
+      echo "NVME_CACHE_DIR_NOT_NVME"
+    fi
+  fi
+
+  # === GPU MONITORING (background) ===
+  echo "=== Starting GPU monitor ==="
+  (
+    while true; do
+      echo "=== GPU STATUS $(date +%H:%M:%S) ==="
+      nvidia-smi --query-gpu=index,name,utilization.gpu,utilization.memory,memory.used,memory.total,temperature.gpu --format=csv
+      sleep 30
+    done
+  ) > /tmp/gpu_monitor.log 2>&1 &
+  GPU_MONITOR_PID=$!
+  echo "GPU monitor PID: $GPU_MONITOR_PID"
+
+  echo "=== TRAINING (Qwen3-4B QLoRA on V100) START: $(date) ==="
+  start_time=$(date +%s)
+
+  # Initial GPU state
+  nvidia-smi
+
+  torchrun --nproc_per_node=${NUM_GPUS} train_qwen3_4b_qlora_single_gpu.py \
+    --model-id Qwen/Qwen3-${MODELSIZE}B \
+    --dataset-id microsoft/orca-math-word-problems-200k \
+    --output-dir /opt/ml/checkpoints/qwen3_sft \
+    --epochs ${EPOCHS} --per-device-train-batch-size ${BATCH_SIZE} --grad-accum-steps ${GRAD_ACCUM_STEPS} \
+    --optim adamw_torch \
+    --save-steps ${SAVE_STEPS} \
+    --gradient-checkpointing true --max-train-samples ${MAX_TRAIN_SAMPLES} --max-eval-samples 100 \
+    --fsdp-offload true \
+    --max-seq-length $MAX_SEQ_LEN \
+    --async-checkpoint true \
+    --save-total-limit ${SAVE_TOTAL_LIMIT} \
+    --dcp-resume-optim false \
+    --bf16 false --fp16 true --tf32 false
+
+  TRAIN_EXIT=$?
+  end_time=$(date +%s)
+  duration=$((end_time - start_time))
+
+  # Kill GPU monitor
+  kill $GPU_MONITOR_PID 2>/dev/null || true
+
+  echo "=== TRAINING COMPLETED: $(date) ==="
+  echo "=== EXIT CODE: ${TRAIN_EXIT} ==="
+  echo "=== TOTAL DURATION: ${duration} seconds ($(($duration / 60)) minutes) ==="
+
+  echo "=== FINAL GPU STATE ==="
+  nvidia-smi
+
+  echo "=== OUTPUT SNAPSHOT (top-level) ==="
+  ls -l /opt/ml/checkpoints/qwen3_sft | head -n 80
+  echo "=== LATEST CHECKPOINT DIRS ==="
+  ls -1d /opt/ml/checkpoints/qwen3_sft/checkpoint-* 2>/dev/null | tail -n 5 || true
+
+  exit $TRAIN_EXIT

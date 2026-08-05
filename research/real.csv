@@ -1,0 +1,4 @@
+gpu, ours, multibase, single-us, single-eu, single-ap, sage-eu, sage-us, sage-ap, ours-probe, ours-egress, multibase-egress, single-us-OD, single-eu-OD, single-ap-OD, sage-eu-OD, sage-us-OD, sage-ap-OD
+A100, 261.78, 469.59, 579.43, 848.14, 1014.30, 977.13, 668.50, 1059.35, 3.17, 0, 0, 0, 848.14, 1014.3, 956, 0, 1059.35
+L4, 58.71, 73.78, 82.83, 68.06, 113.46, 82.72, 83.43, 234.24, 1.92, 9.60, 2.4, 12.81, 0, 83.75, 0, 0, 206
+A10G, 101.55, 106.00, 119.7, 159.82, 200.58, 266.42, 113.08, 308.91, 1.42, 9.60, 16.8, 9.45, 159.82, 200.58, 266.42, 0, 308.91
