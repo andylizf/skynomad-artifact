@@ -12,13 +12,8 @@ from benchmark_components.trace_utils import (
 # Multi-region strategies (run on multi_trace environment)
 MULTI_REGION_STRATEGIES = [
     "multi_region_rc_cr_threshold",
-    "multi_region_rc_cr_threshold_egress",
-    "multi_region_rc_cr_cheapest",  # UP with cost-aware region selection
-    "multi_region_single_rc_cr_threshold",
     "unified_cost_model_oracle",
     "multi_region_oracle_dp",
-    "unified_cost_model_risk_simple_cref",
-    "multi_region_oracle_dp_safety_net",
     "unified_cost_model_risk",
     "unified_cost_model_rate_ratio",
     "unified_cost_model_rate_avail",
@@ -33,9 +28,6 @@ SEGMENT_VIZ_STRATEGIES = [
     "unified_cost_model_risk",
     # "multi_region_oracle_dp",
     "multi_region_rc_cr_threshold",
-    "multi_region_single_rc_cr_threshold",
-    "unified_cost_model_risk_simple_cref",
-    "multi_region_oracle_dp_safety_net",
     "unified_cost_model_oracle",
     "unified_cost_model_rate_ratio",
     "unified_cost_model_rate_avail",
@@ -724,7 +716,6 @@ VOLATILE_NO_FALLBACK_SCENARIO = {
         "unified_cost_model_rate_ratio",
         "unified_cost_model_ramp_v",
         "unified_cost_model_risk",
-        "unified_cost_model_risk_simple_cref",
         "unified_cost_model_rate_avail",
     ],
 }
