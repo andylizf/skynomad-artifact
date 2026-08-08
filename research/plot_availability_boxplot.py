@@ -16,6 +16,9 @@ import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import numpy as np
+import pandas as pd
+
+from sky_spot.figure_values import write_values
 
 ###############
 
@@ -460,6 +463,28 @@ def plot_boxplot_figure(
         fig.savefig(out_path, dpi=300, bbox_inches="tight")
         fig.savefig(out_path.with_suffix(".pdf"), bbox_inches="tight")
         print(f"Figure saved to: {out_path}")
+        # A box is drawn entirely from these five order statistics plus the count.
+        # None of them is text in the PDF, so the text-layer diff cannot see a
+        # changed lifetime distribution.
+        write_values(
+            out_path.with_suffix(".pdf"),
+            pd.DataFrame(
+                [
+                    {
+                        "region": region,
+                        "periods": len(lt),
+                        "q1": float(np.percentile(lt, 25)) if lt else float("nan"),
+                        "median": float(np.median(lt)) if lt else float("nan"),
+                        "q3": float(np.percentile(lt, 75)) if lt else float("nan"),
+                        "min_h": float(np.min(lt)) if lt else float("nan"),
+                        "max_h": float(np.max(lt)) if lt else float("nan"),
+                        "mean_h": float(np.mean(lt)) if lt else float("nan"),
+                    }
+                    for region, lt in zip(valid_regions, lifetime_all)
+                ]
+            ),
+            ["region", "periods", "min_h", "q1", "median", "q3", "max_h", "mean_h"],
+        )
 
     if show_plot:
         plt.show()

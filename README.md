@@ -85,7 +85,7 @@ python artifact/verify_figs.py
 
 The first writes the 19 figure PDFs under `outputs/` — 13 directly in
 `outputs/figures/`, the rest in per-figure subdirectories — with a `.values.csv`
-beside each of the six figures that carry one, plus an exit code and wall time per
+beside each of the eleven figures that carry one, plus an exit code and wall time per
 figure in `outputs/reproduce.log`. The second walks all of them and prints one line
 per figure.
 
@@ -98,11 +98,19 @@ Afterwards `outputs/figures/` holds:
 
 `verify_figs.py` checks each figure twice, and both must pass: the text layer
 against the paper's own PDF under `paper_figs/`, which catches changed axis ticks,
-ranges and legends; and the plotted series, which every result-figure script writes
-to `<figure>.values.csv` and which is compared cell by cell against
+ranges and legends; and the plotted series, which each data-bearing figure's script
+writes to `<figure>.values.csv` and which is compared cell by cell against
 `paper_figs/values/` at 1% relative tolerance. The second is the check that sees
 the numbers — scaling SkyNomad's cost by 30% in `research/data/*.csv` reports
-`VALUES DIFF` on all six result figures.
+`VALUES DIFF` on all six result figures, and zeroing a zone's availability in
+`data/h100_16_runs/` reports it on Figures 2a and 11a.
+
+Eleven of the 19 checked figures have a sidecar: the six result figures (9a, 9b,
+10a, 10b, 12, 15), the four availability figures (2a, 2b, 11a, 11b) and Figure 14.
+The other eight — Figure 3's two panels, 4b, 7's three panels, 8 and 13 — are
+checked on their text layer only, so a changed line vertex or bar height in those
+would not be caught. Their generating scripts are named in the figure map below,
+and re-running one is what checks its numbers.
 
 ### Figure map
 

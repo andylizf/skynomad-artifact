@@ -17,6 +17,8 @@ import pandas as pd
 import matplotlib.dates as mdates
 import matplotlib.colors as mcolors
 
+from sky_spot.figure_values import write_values
+
 ###############
 
 RESEARCH = 1  # For research presentation.
@@ -277,6 +279,7 @@ def plot_availability_filled(
     # Find global max for normalization
     global_max = 16  # instances_requested is always 16
 
+    value_rows: list[dict] = []
     for i, region in enumerate(plot_regions):
         if region not in all_region_data:
             print(f"  Warning: No data for {region}")
@@ -325,6 +328,22 @@ def plot_availability_filled(
         avail_pct = 100 * sum(1 for x in instances if x >= AVAILABILITY_THRESHOLD) / len(instances)
         print(f"  {region}: {len(instances)} points, {avail_pct:.1f}% available")
 
+        # Everything this row draws, as numbers. The curve is vector geometry, so
+        # a text-layer diff of the PDF cannot see a changed availability series --
+        # only the y-axis label's price is text. mean/max instances summarise the
+        # filled area, available_points the segments drawn at full availability.
+        value_rows.append(
+            {
+                "region": region,
+                "points": len(instances),
+                "available_points": sum(1 for x in instances if x >= AVAILABILITY_THRESHOLD),
+                "avail_pct": avail_pct,
+                "mean_instances": float(np.mean(instances)),
+                "max_instances": float(np.max(instances)),
+                "avg_price_usd": float(avg_price_data[region]),
+            }
+        )
+
     # Set y-axis with region labels
     ax.set_ylim(0, ylim)
     # label_names = list(reversed(REGIONS))
@@ -362,6 +381,13 @@ def plot_availability_filled(
         fig.savefig(out_path, dpi=300, bbox_inches="tight")
         fig.savefig(out_path.with_suffix(".pdf"), bbox_inches="tight")
         print(f"Figure saved to: {out_path}")
+        if value_rows:
+            write_values(
+                out_path.with_suffix(".pdf"),
+                pd.DataFrame(value_rows),
+                ["region", "points", "available_points", "avail_pct",
+                 "mean_instances", "max_instances", "avg_price_usd"],
+            )
 
     if show_plot:
         plt.show()

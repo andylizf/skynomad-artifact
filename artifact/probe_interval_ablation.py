@@ -35,6 +35,9 @@ import tempfile
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import pandas as pd
+
+from sky_spot.figure_values import write_values
 
 # One tick is gap_seconds = 600 s = 10 min in the H100 traces.
 TICKS_PER_10MIN = 1
@@ -138,6 +141,14 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out)
     print(f"Saved: {out}")
+
+    # The two stacked bar heights per interval, which are geometry rather than text.
+    write_values(
+        out,
+        pd.DataFrame({"probe_interval": labels, "compute_egress": compute,
+                      "probing_overhead": probing}),
+        ["probe_interval", "compute_egress", "probing_overhead"],
+    )
 
     lo, hi = min(compute), max(compute)
     print(f"\nCompute+egress varies {lo:.2f}-{hi:.2f} USD "
