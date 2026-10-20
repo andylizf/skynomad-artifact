@@ -13,10 +13,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-# OUR_METHOD_NAME = "SkyNomad"
-# OUR_METHOD_NAME_DL = "Sky\nNomad"
-OUR_METHOD_NAME = "SkyVoyager"
-OUR_METHOD_NAME_DL = "Sky\nVoyager"
+OUR_METHOD_NAME = "SkyNomad"
+OUR_METHOD_NAME_DL = "Sky\nNomad"
 
 # Purples.
 colors = list(reversed(sns.color_palette("ch:2.5,+.2,dark=.3")))[:2]

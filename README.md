@@ -6,9 +6,6 @@ Job Cost** (NSDI '27 Spring), included here as `paper.pdf`.
 SkyNomad schedules AI batch jobs across cloud regions to exploit heterogeneity in
 spot availability, lifetime, and price, minimizing cost while meeting deadlines.
 
-> `paper.pdf` is titled **SkyVoyager**, the double-blind submission alias; the
-> camera-ready and this repository say **SkyNomad**.
-
 Everything needed to reproduce the paper's figures ships inside this repository.
 Beyond `uv sync`, there are no downloads, no cloud credentials, no accounts and no
 GPU. Nothing after `uv sync` touches the network.

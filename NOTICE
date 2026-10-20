@@ -14,9 +14,8 @@ alongside this software under the same license.
 Third-party content
 -------------------
 
-paper.pdf is the accepted version of the paper this artifact accompanies
-(submitted under the double-blind alias "SkyVoyager"). It is included for
-reference. Copyright in the published version rests with the authors and
+paper.pdf is the final version of the paper this artifact accompanies. It
+is included for reference. Copyright in the published version rests with the authors and
 USENIX under the terms of the NSDI '27 publication agreement; it is not
 covered by the Apache License 2.0 that governs the rest of this product.
 
